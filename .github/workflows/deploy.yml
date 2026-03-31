@@ -8,7 +8,7 @@ on:
       build_command:
         description: '构建命令'
         required: false
-        default: 'pnpm run build'
+        default: 'pnpm run build:cfworkers'
       worker_name:
         description: 'Worker 名称（留空则使用 wrangler.toml 配置）'
         required: false
@@ -50,7 +50,7 @@ jobs:
 
       - name: 构建项目
         working-directory: code-repo
-        run: ${{ inputs.build_command || 'pnpm run build' }}
+        run: ${{ inputs.build_command || 'pnpm run build:cfworkers' }}
 
       - name: 部署到 Cloudflare
         uses: cloudflare/wrangler-action@v3
