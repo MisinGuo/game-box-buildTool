@@ -6,9 +6,9 @@ on:
   workflow_dispatch:
     inputs:
       build_command:
-        description: '构建命令'
+        description: '构建命令（触发时由系统自动传入）'
         required: false
-        default: 'pnpm run build:cfworkers'
+        default: 'pnpm run build'
       worker_name:
         description: 'Worker 名称（留空则使用 wrangler.toml 配置）'
         required: false
@@ -16,7 +16,7 @@ on:
         description: '代码仓库 URL（如 https://github.com/owner/my-site）'
         required: true
       git_branch:
-        description: '代码分支'
+        description: '代码分支（触发时由系统自动传入）'
         required: false
         default: 'main'
 
@@ -50,7 +50,7 @@ jobs:
 
       - name: 构建项目
         working-directory: code-repo
-        run: ${{ inputs.build_command || 'pnpm run build:cfworkers' }}
+        run: ${{ inputs.build_command || 'pnpm run build' }}
 
       - name: 部署到 Cloudflare
         uses: cloudflare/wrangler-action@v3
